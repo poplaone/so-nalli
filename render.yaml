@@ -3,7 +3,7 @@ services:
     name: student-management-system
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn --bind 0.0.0.0:$PORT wsgi:app"
+    startCommand: "python start.py"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
