@@ -1,0 +1,391 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Student Management System{% endblock %}
+
+{% block content %}
+<!-- Enhanced Hero Section with Image -->
+<div class="hero-section">
+    <!-- Hero Background with Image -->
+    <div class="hero-background">
+        <div class="hero-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-pattern"></div>
+    </div>
+    
+    <!-- Hero Content -->
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6 col-md-8 mx-auto mx-lg-0">
+                <div class="hero-content">
+                    <!-- Hero Badge -->
+                    <div class="hero-badge fade-in">
+                        <i class="fas fa-graduation-cap me-2"></i>
+                        <span>NIELIT O-Level Project 2024-25</span>
+                    </div>
+                    
+                    <!-- Hero Title -->
+                    <h1 class="hero-title fade-in-delay">
+                        <span class="title-line-1">Modern</span>
+                        <span class="title-line-2">Student Management</span>
+                        <span class="title-line-3">System</span>
+                    </h1>
+                    
+                    <!-- Hero Description -->
+                    <div class="hero-description fade-in-delay-2">
+                        <p class="hero-subtitle">
+                            Streamline your educational institution with our comprehensive digital solution. 
+                            Manage students, courses, and academic records with ease.
+                        </p>
+                        
+                        <!-- Key Features List -->
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Complete Student Profiles</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Course Management</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Academic Analytics</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hero Actions -->
+                    <div class="hero-actions fade-in-delay-3">
+                        <a href="{{ url_for('login') }}" class="btn btn-hero btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>
+                            <span>Access Dashboard</span>
+                        </a>
+                        <a href="#features" class="btn btn-outline-hero btn-lg">
+                            <i class="fas fa-play me-2"></i>
+                            <span>Explore Features</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Hero Stats -->
+                    <div class="hero-stats fade-in-delay-4">
+                        <div class="stat-item">
+                            <div class="stat-number">6</div>
+                            <div class="stat-label">Sample Students</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Active Courses</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Responsive</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hero Visual (Hidden on mobile) -->
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="hero-visual fade-in-delay-2">
+                    <div class="visual-container">
+                        <!-- Dashboard Preview -->
+                        <div class="dashboard-preview">
+                            <div class="preview-header">
+                                <div class="preview-dots">
+                                    <span class="dot red"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <div class="preview-title">Student Dashboard</div>
+                            </div>
+                            <div class="preview-content">
+                                <div class="preview-stats">
+                                    <div class="preview-stat">
+                                        <div class="stat-icon bg-primary">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        <div class="stat-info">
+                                            <div class="stat-num">6</div>
+                                            <div class="stat-text">Students</div>
+                                        </div>
+                                    </div>
+                                    <div class="preview-stat">
+                                        <div class="stat-icon bg-success">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                        <div class="stat-info">
+                                            <div class="stat-num">8</div>
+                                            <div class="stat-text">Courses</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="preview-chart">
+                                    <div class="chart-bars">
+                                        <div class="bar" style="height: 60%"></div>
+                                        <div class="bar" style="height: 80%"></div>
+                                        <div class="bar" style="height: 45%"></div>
+                                        <div class="bar" style="height: 90%"></div>
+                                        <div class="bar" style="height: 70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Elements -->
+                        <div class="floating-elements">
+                            <div class="floating-card card-1">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="floating-card card-2">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="floating-card card-3">
+                                <i class="fas fa-award"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="hero-scroll">
+        <a href="#features" class="scroll-indicator">
+            <span class="scroll-text">Scroll to explore</span>
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Features Section -->
+<section id="features" class="features-section py-5">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title text-gradient">Powerful Features</h2>
+            <p class="section-subtitle text-muted">Everything you need to manage your educational institution</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card hover-lift">
+                    <div class="feature-icon feature-icon-primary">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h5>Student Management</h5>
+                        <p>Comprehensive student profiles with personal information, academic records, and enrollment tracking.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check text-success"></i> Student Registration</li>
+                            <li><i class="fas fa-check text-success"></i> Profile Management</li>
+                            <li><i class="fas fa-check text-success"></i> Search & Filter</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card hover-lift">
+                    <div class="feature-icon feature-icon-success">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h5>Course Management</h5>
+                        <p>Create, organize, and manage courses with detailed descriptions and credit tracking.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check text-success"></i> Course Creation</li>
+                            <li><i class="fas fa-check text-success"></i> Credit Management</li>
+                            <li><i class="fas fa-check text-success"></i> Course Catalog</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card hover-lift">
+                    <div class="feature-icon feature-icon-warning">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h5>Academic Analytics</h5>
+                        <p>Track student progress, generate reports, and analyze academic performance data.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check text-success"></i> Grade Tracking</li>
+                            <li><i class="fas fa-check text-success"></i> Progress Reports</li>
+                            <li><i class="fas fa-check text-success"></i> Performance Analytics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card hover-lift">
+                    <div class="feature-icon feature-icon-info">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h5>Secure & Reliable</h5>
+                        <p>Built with security in mind, featuring encrypted data storage and secure authentication.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check text-success"></i> Data Encryption</li>
+                            <li><i class="fas fa-check text-success"></i> Secure Login</li>
+                            <li><i class="fas fa-check text-success"></i> Backup System</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card hover-lift">
+                    <div class="feature-icon feature-icon-purple">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h5>Responsive Design</h5>
+                        <p>Access your data from any device with our fully responsive, mobile-friendly interface.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check text-success"></i> Mobile Optimized</li>
+                            <li><i class="fas fa-check text-success"></i> Cross-Platform</li>
+                            <li><i class="fas fa-check text-success"></i> Modern UI/UX</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card hover-lift">
+                    <div class="feature-icon feature-icon-danger">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h5>Easy Integration</h5>
+                        <p>Seamlessly integrate with existing systems and export data in multiple formats.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check text-success"></i> Data Export</li>
+                            <li><i class="fas fa-check text-success"></i> API Ready</li>
+                            <li><i class="fas fa-check text-success"></i> Scalable Architecture</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technology Stack Section -->
+<section class="tech-section py-5">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title text-gradient">Built with Modern Technology</h2>
+            <p class="section-subtitle text-muted">Powered by industry-leading technologies and frameworks</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="tech-card hover-lift">
+                    <div class="tech-header">
+                        <h4><i class="fas fa-code text-primary me-2"></i>Frontend Technologies</h4>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <i class="fab fa-html5 text-danger"></i>
+                            <span>HTML5</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-css3-alt text-primary"></i>
+                            <span>CSS3</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-js-square text-warning"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-bootstrap text-purple"></i>
+                            <span>Bootstrap 5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="tech-card hover-lift">
+                    <div class="tech-header">
+                        <h4><i class="fas fa-server text-success me-2"></i>Backend Technologies</h4>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <i class="fab fa-python text-blue"></i>
+                            <span>Python</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-flask text-dark"></i>
+                            <span>Flask</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-database text-info"></i>
+                            <span>SQLite</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-shield-alt text-success"></i>
+                            <span>Security</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Information Section -->
+<section class="project-info-section py-5">
+    <div class="container">
+        <div class="project-info-card">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="project-details">
+                        <h3 class="text-gradient mb-3">NIELIT Academic Project</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <strong>Institution:</strong>
+                                <span>Vertex Institute, Solan (An Accredited Institute of NIELIT)</span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Academic Session:</strong>
+                                <span>2024-2025</span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Project Type:</strong>
+                                <span>O Level Final Project</span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Developer:</strong>
+                                <span>Sonal Chauhan - Reg. No: 1668886</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="project-badge">
+                        <i class="fas fa-award fa-3x text-warning mb-3"></i>
+                        <h5>Academic Excellence</h5>
+                        <p class="text-muted">NIELIT Certified Project</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta-section py-5">
+    <div class="container text-center">
+        <div class="cta-content">
+            <h2 class="text-white mb-3">Ready to Get Started?</h2>
+            <p class="text-white-50 mb-4">Experience the power of modern student management</p>
+            <a href="{{ url_for('login') }}" class="btn btn-hero btn-lg">
+                <i class="fas fa-rocket me-2"></i>Launch Dashboard
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

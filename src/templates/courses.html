@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+
+{% block title %}Courses - Student Management System{% endblock %}
+
+{% block content %}
+<!-- Cool Header Section -->
+<div class="page-header mb-5">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="display-5 text-gradient mb-2 fade-in">
+                <i class="fas fa-book-open me-3"></i>Course Management
+            </h1>
+            <p class="lead text-muted fade-in-delay">Create, organize, and manage your academic curriculum</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{{ url_for('add_course') }}" class="btn btn-gradient btn-lg hover-lift">
+                <i class="fas fa-plus me-2"></i>Add New Course
+            </a>
+        </div>
+    </div>
+</div>
+
+{% if courses %}
+<!-- Search and Filter Section -->
+<div class="search-section mb-4 fade-in-delay">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="courseSearch" class="form-control search-input" placeholder="Search courses by name, code, or description...">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="student-count">
+                <span class="count-number">{{ courses|length }}</span>
+                <span class="count-label">Total Courses</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Courses Grid -->
+<div class="courses-grid fade-in-delay-2">
+    <div class="row g-4" id="coursesContainer">
+        {% for course in courses %}
+        <div class="col-lg-6 col-md-6 course-card-wrapper">
+            <div class="course-card hover-lift">
+                <div class="course-card-header">
+                    <div class="course-code-badge">
+                        {{ course.course_code }}
+                    </div>
+                    <div class="course-credits">
+                        <i class="fas fa-star text-warning"></i>
+                        {{ course.credits }} Credits
+                    </div>
+                </div>
+                <div class="course-card-body">
+                    <h5 class="course-name">{{ course.course_name }}</h5>
+                    <p class="course-description">
+                        {{ course.description[:100] + '...' if course.description and course.description|length > 100 else course.description or 'No description available' }}
+                    </p>
+                    <div class="course-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users text-primary"></i>
+                            <span>0 Enrolled</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock text-info"></i>
+                            <span>Active</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card-footer">
+                    <button type="button" class="btn btn-outline-info btn-sm" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#courseModal{{ course.course_id }}"
+                            title="View course details">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" title="Edit course">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" 
+                            onclick="confirmDelete('{{ course.course_name }}', '{{ course.course_id }}')"
+                            title="Delete course">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Course Details Modals -->
+{% for course in courses %}
+<div class="modal fade" id="courseModal{{ course.course_id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-glass">
+            <div class="modal-header modal-header-gradient">
+                <h5 class="modal-title text-white">
+                    <i class="fas fa-book-open me-2"></i>Course Details
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="course-profile">
+                    <div class="profile-header text-center mb-4">
+                        <div class="course-icon-large">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h4 class="mt-3">{{ course.course_name }}</h4>
+                        <span class="badge bg-primary">{{ course.course_code }}</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="profile-info-card">
+                                <h6><i class="fas fa-info-circle text-primary"></i> Course Information</h6>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Course Code:</span>
+                                    <span class="detail-value">{{ course.course_code }}</span>
+                                </div>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Credits:</span>
+                                    <span class="detail-value">{{ course.credits }} Credits</span>
+                                </div>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Status:</span>
+                                    <span class="detail-value"><span class="badge bg-success">Active</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="profile-info-card">
+                                <h6><i class="fas fa-chart-bar text-success"></i> Statistics</h6>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Enrolled Students:</span>
+                                    <span class="detail-value">0</span>
+                                </div>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Completion Rate:</span>
+                                    <span class="detail-value">N/A</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if course.description %}
+                    <div class="profile-info-card mt-3">
+                        <h6><i class="fas fa-align-left text-warning"></i> Course Description</h6>
+                        <p class="mb-0">{{ course.description }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Close
+                </button>
+                <button type="button" class="btn btn-gradient">
+                    <i class="fas fa-edit"></i> Edit Course
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<!-- Empty State -->
+<div class="empty-state fade-in">
+    <div class="empty-state-content">
+        <div class="empty-state-icon">
+            <i class="fas fa-book-open"></i>
+        </div>
+        <h3>No Courses Yet</h3>
+        <p class="text-muted">Start building your course catalog by adding your first course.</p>
+        <a href="{{ url_for('add_course') }}" class="btn btn-gradient btn-lg">
+            <i class="fas fa-plus me-2"></i>Add First Course
+        </a>
+    </div>
+</div>
+{% endif %}
+
+<script>
+// Enhanced Search Functionality for Courses
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('courseSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const courseCards = document.querySelectorAll('.course-card-wrapper');
+            let visibleCount = 0;
+            
+            courseCards.forEach((card, index) => {
+                const courseName = card.querySelector('.course-name').textContent.toLowerCase();
+                const courseCode = card.querySelector('.course-code-badge').textContent.toLowerCase();
+                const courseDescription = card.querySelector('.course-description').textContent.toLowerCase();
+                
+                if (courseName.includes(searchTerm) || 
+                    courseCode.includes(searchTerm) || 
+                    courseDescription.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    card.style.animation = `slideInUp 0.3s ease ${index * 0.1}s both`;
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Update count
+            const countNumber = document.querySelector('.count-number');
+            if (countNumber) {
+                countNumber.textContent = visibleCount;
+            }
+            
+            // Show no results message
+            showNoResults(visibleCount === 0 && searchTerm.length > 0);
+        });
+    }
+    
+    // Add smooth animations on load
+    const courseCards = document.querySelectorAll('.course-card-wrapper');
+    courseCards.forEach((card, index) => {
+        card.style.animation = `slideInUp 0.6s ease ${index * 0.1}s both`;
+    });
+});
+
+// Show/hide no results message
+function showNoResults(show) {
+    let noResultsDiv = document.getElementById('noResults');
+    
+    if (show && !noResultsDiv) {
+        noResultsDiv = document.createElement('div');
+        noResultsDiv.id = 'noResults';
+        noResultsDiv.className = 'col-12';
+        noResultsDiv.innerHTML = `
+            <div class="text-center py-5">
+                <div class="empty-state-icon mb-4" style="width: 80px; height: 80px; margin: 0 auto;">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h4 class="text-muted">No courses found</h4>
+                <p class="text-muted">Try adjusting your search terms</p>
+            </div>
+        `;
+        document.getElementById('coursesContainer').appendChild(noResultsDiv);
+    } else if (!show && noResultsDiv) {
+        noResultsDiv.remove();
+    }
+}
+
+// Confirm delete function
+function confirmDelete(courseName, courseId) {
+    if (confirm(`Are you sure you want to delete the course "${courseName}"? This action cannot be undone.`)) {
+        // Add loading state
+        const deleteBtn = event.target.closest('button');
+        const originalContent = deleteBtn.innerHTML;
+        deleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+        deleteBtn.disabled = true;
+        
+        // Here you would typically make an AJAX call to delete the course
+        // For now, we'll just show a toast message
+        setTimeout(() => {
+            showToast(`Course "${courseName}" has been deleted successfully.`, 'success');
+            // Remove the card with animation
+            const card = deleteBtn.closest('.course-card-wrapper');
+            card.style.animation = 'slideOutUp 0.3s ease';
+            setTimeout(() => {
+                card.remove();
+                // Update count
+                const countNumber = document.querySelector('.count-number');
+                if (countNumber) {
+                    countNumber.textContent = parseInt(countNumber.textContent) - 1;
+                }
+            }, 300);
+        }, 1000);
+    }
+}
+
+// Add keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    // Ctrl/Cmd + K to focus search
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        const searchInput = document.getElementById('courseSearch');
+        if (searchInput) {
+            searchInput.focus();
+            searchInput.select();
+        }
+    }
+    
+    // Escape to clear search
+    if (e.key === 'Escape') {
+        const searchInput = document.getElementById('courseSearch');
+        if (searchInput && searchInput.value) {
+            searchInput.value = '';
+            searchInput.dispatchEvent(new Event('input'));
+        }
+    }
+});
+
+// Add search placeholder animation
+const searchInput = document.getElementById('courseSearch');
+if (searchInput) {
+    const placeholders = [
+        'Search courses by name, code, or description...',
+        'Try searching for "Python", "Web Development"...',
+        'Find courses by code like "CS101"...',
+        'Search by keywords like "programming"...'
+    ];
+    
+    let currentIndex = 0;
+    setInterval(() => {
+        if (!searchInput.value && document.activeElement !== searchInput) {
+            searchInput.placeholder = placeholders[currentIndex];
+            currentIndex = (currentIndex + 1) % placeholders.length;
+        }
+    }, 3000);
+}
+</script>
+
+<style>
+@keyframes slideOutUp {
+    to {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}
+
+/* Search input enhancements */
+.search-input:focus {
+    transform: scale(1.02);
+}
+
+/* Keyboard shortcut hint */
+.search-box::after {
+    content: 'Ctrl+K';
+    position: absolute;
+    right: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--gray-200);
+    color: var(--gray-600);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.search-input:focus + .search-box::after {
+    display: none;
+}
+
+/* Loading button state */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+</style>
+{% endblock %}

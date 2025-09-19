@@ -1,0 +1,425 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Student Management System{% endblock %}
+
+{% block content %}
+<!-- Modern Dashboard Header Section -->
+<div class="dashboard-hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <div class="dashboard-hero-content">
+                    <!-- Welcome Badge -->
+                    <div class="welcome-badge fade-in">
+                        <i class="fas fa-shield-check me-2"></i>
+                        <span>Admin Dashboard - Sonal Chauhan</span>
+                    </div>
+
+                    <!-- Main Title -->
+                    <h1 class="dashboard-title fade-in-delay">
+                        <span class="title-greeting">Welcome Back,</span>
+                        <span class="title-main">Dashboard Overview</span>
+                    </h1>
+
+                    <!-- Description -->
+                    <p class="dashboard-subtitle fade-in-delay-2">
+                        Monitor your Student Management System performance and manage academic records efficiently.
+                    </p>
+
+                    <!-- Quick Stats -->
+                    <div class="quick-stats fade-in-delay-3">
+                        <div class="quick-stat-item">
+                            <div class="stat-number">{{ total_students }}</div>
+                            <div class="stat-label">Students</div>
+                        </div>
+                        <div class="quick-stat-item">
+                            <div class="stat-number">{{ total_courses }}</div>
+                            <div class="stat-label">Courses</div>
+                        </div>
+                        <div class="quick-stat-item">
+                            <div class="stat-number">{{ total_grades }}</div>
+                            <div class="stat-label">Records</div>
+                        </div>
+                        <div class="quick-stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Online</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time and Status -->
+            <div class="col-lg-4">
+                <div class="dashboard-status fade-in-delay-2">
+                    <div class="status-card">
+                        <div class="status-header">
+                            <h5>System Status</h5>
+                            <span class="status-indicator online"></span>
+                        </div>
+                        <div class="status-body">
+                            <div class="current-time">
+                                <i class="fas fa-clock"></i>
+                                <span id="currentTime"></span>
+                            </div>
+                            <div class="current-date">
+                                <i class="fas fa-calendar"></i>
+                                <span id="currentDate"></span>
+                            </div>
+                            <div class="system-info">
+                                <small>Last updated: Just now</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modern Statistics Section -->
+<div class="container">
+    <div class="stats-section mb-5" style="margin-top: 80px;">
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">System Analytics</h2>
+            <p class="section-subtitle">Real-time insights into your academic management system</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="modern-stat-card stat-primary hover-lift fade-in">
+                    <div class="stat-icon-wrapper">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">{{ total_students }}</div>
+                        <div class="stat-label">Total Students</div>
+                        <div class="stat-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Active Enrollments</span>
+                        </div>
+                    </div>
+                    <div class="stat-action">
+                        <a href="{{ url_for('students') }}" class="btn btn-stat">
+                            <i class="fas fa-eye me-1"></i>View All
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="modern-stat-card stat-success hover-lift fade-in-delay">
+                    <div class="stat-icon-wrapper">
+                        <div class="stat-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">{{ total_courses }}</div>
+                        <div class="stat-label">Active Courses</div>
+                        <div class="stat-trend">
+                            <i class="fas fa-plus"></i>
+                            <span>Available Programs</span>
+                        </div>
+                    </div>
+                    <div class="stat-action">
+                        <a href="{{ url_for('courses') }}" class="btn btn-stat">
+                            <i class="fas fa-cog me-1"></i>Manage
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="modern-stat-card stat-warning hover-lift fade-in-delay-2">
+                    <div class="stat-icon-wrapper">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">{{ total_grades }}</div>
+                        <div class="stat-label">Grade Records</div>
+                        <div class="stat-trend">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Academic Progress</span>
+                        </div>
+                    </div>
+                    <div class="stat-action">
+                        <a href="#" class="btn btn-stat">
+                            <i class="fas fa-chart-pie me-1"></i>Reports
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="modern-stat-card stat-info hover-lift fade-in-delay-3">
+                    <div class="stat-icon-wrapper">
+                        <div class="stat-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">System Health</div>
+                        <div class="stat-trend">
+                            <i class="fas fa-check-circle"></i>
+                            <span>All Systems Online</span>
+                        </div>
+                    </div>
+                    <div class="stat-action">
+                        <a href="#" class="btn btn-stat">
+                            <i class="fas fa-server me-1"></i>Status
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modern Quick Actions Section -->
+<div class="container">
+    <div class="actions-section mb-5">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="actions-card hover-lift">
+                    <div class="actions-header">
+                        <h3><i class="fas fa-bolt me-2"></i>Quick Actions</h3>
+                        <p>Streamline your workflow with these essential tools</p>
+                    </div>
+                    <div class="actions-grid">
+                        <a href="{{ url_for('add_student') }}" class="action-item action-primary">
+                            <div class="action-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="action-content">
+                                <h5>Add Student</h5>
+                                <p>Register new student</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="{{ url_for('add_course') }}" class="action-item action-success">
+                            <div class="action-icon">
+                                <i class="fas fa-book-plus"></i>
+                            </div>
+                            <div class="action-content">
+                                <h5>Create Course</h5>
+                                <p>Add new course</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="{{ url_for('students') }}" class="action-item action-info">
+                            <div class="action-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="action-content">
+                                <h5>Browse Students</h5>
+                                <p>View all records</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="{{ url_for('courses') }}" class="action-item action-warning">
+                            <div class="action-icon">
+                                <i class="fas fa-list-alt"></i>
+                            </div>
+                            <div class="action-content">
+                                <h5>Manage Courses</h5>
+                                <p>Course catalog</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="system-card hover-lift">
+                    <div class="system-header">
+                        <h4><i class="fas fa-server me-2"></i>System Info</h4>
+                    </div>
+                    <div class="system-body">
+                        <div class="system-metric">
+                            <div class="metric-label">Project Version</div>
+                            <div class="metric-value">v1.0.0</div>
+                        </div>
+                        <div class="system-metric">
+                            <div class="metric-label">Database</div>
+                            <div class="metric-value">
+                                <span class="status-dot online"></span>SQLite
+                            </div>
+                        </div>
+                        <div class="system-metric">
+                            <div class="metric-label">Framework</div>
+                            <div class="metric-value">Flask 2.3.3</div>
+                        </div>
+                        <div class="system-metric">
+                            <div class="metric-label">Institution</div>
+                            <div class="metric-value">Vertex Institute</div>
+                        </div>
+                        <div class="system-metric">
+                            <div class="metric-label">Session</div>
+                            <div class="metric-value">2024-2025</div>
+                        </div>
+                        <div class="system-status">
+                            <span class="status-indicator online"></span>
+                            <span>All Systems Operational</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modern Activity Timeline -->
+<div class="container">
+    <div class="activity-section">
+        <div class="activity-card hover-lift">
+            <div class="activity-header">
+                <div class="activity-title">
+                    <h3><i class="fas fa-clock me-2"></i>Recent Activity</h3>
+                    <span class="live-indicator">
+                        <span class="pulse-dot"></span>Live
+                    </span>
+                </div>
+                <p>Real-time system events and updates</p>
+            </div>
+            <div class="activity-body">
+                <div class="modern-timeline">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-marker success">
+                            <i class="fas fa-power-off"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h6>System Initialized</h6>
+                                <span class="timeline-time">Just now</span>
+                            </div>
+                            <p>Student Management System successfully started and all services are online</p>
+                            <div class="timeline-meta">
+                                <span class="meta-tag success">System</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in-delay">
+                        <div class="timeline-marker info">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h6>Database Connected</h6>
+                                <span class="timeline-time">2 minutes ago</span>
+                            </div>
+                            <p>Successfully established connection to SQLite database with sample data loaded</p>
+                            <div class="timeline-meta">
+                                <span class="meta-tag info">Database</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in-delay-2">
+                        <div class="timeline-marker warning">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h6>Admin Authentication</h6>
+                                <span class="timeline-time">5 minutes ago</span>
+                            </div>
+                            <p>Administrator Sonal Chauhan logged in successfully from secure session</p>
+                            <div class="timeline-meta">
+                                <span class="meta-tag warning">Security</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in-delay-3">
+                        <div class="timeline-marker primary">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h6>Project Deployment</h6>
+                                <span class="timeline-time">10 minutes ago</span>
+                            </div>
+                            <p>NIELIT O-Level project successfully deployed with all features operational</p>
+                            <div class="timeline-meta">
+                                <span class="meta-tag primary">Deployment</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Enhanced time and date updates
+    function updateDateTime() {
+        const now = new Date();
+
+        // Update time
+        const timeString = now.toLocaleTimeString('en-US', {
+            hour12: true,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+
+        // Update date
+        const dateString = now.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        const timeElement = document.getElementById('currentTime');
+        const dateElement = document.getElementById('currentDate');
+
+        if (timeElement) timeElement.textContent = timeString;
+        if (dateElement) dateElement.textContent = dateString;
+    }
+
+    // Update every second
+    setInterval(updateDateTime, 1000);
+    updateDateTime(); // Initial call
+
+    // Add smooth animations on load
+    document.addEventListener('DOMContentLoaded', function () {
+        // Animate statistics numbers
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach((stat, index) => {
+            const finalValue = parseInt(stat.textContent);
+            let currentValue = 0;
+            const increment = finalValue / 30;
+
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= finalValue) {
+                    stat.textContent = finalValue + (finalValue === 100 ? '%' : '');
+                    clearInterval(timer);
+                } else {
+                    stat.textContent = Math.floor(currentValue);
+                }
+            }, 50 + (index * 20));
+        });
+    });
+</script>
+{% endblock %}
